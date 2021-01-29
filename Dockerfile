@@ -53,26 +53,26 @@ ENV CLASSPATH .:$JAVA_HOME/lib
 WORKDIR /usr/local
 
 # 下载并解压 Tomcat
-RUN wget http://mirrors.hust.edu.cn/apache/tomcat/tomcat-8/v8.5.50/bin/apache-tomcat-8.5.50.tar.gz \
-  && tar -xzvf apache-tomcat-8.5.50.tar.gz \
-  && mv apache-tomcat-8.5.50 tomcat8
+RUN wget http://mirrors.hust.edu.cn/apache/tomcat/tomcat-7/v7.0.107/bin/apache-tomcat-7.0.107.tar.gz \
+  && tar -xzvf apache-tomcat-7.0.107.tar.gz \
+  && mv apache-tomcat-7.0.107 tomcat7
 
 # 拷贝定制过的 WAR 包
-COPY f2etest-guacamole/guacamole-0.9.3.war /usr/local/tomcat8/webapps/guacamole.war
+COPY f2etest-guacamole/guacamole-0.9.3.war /usr/local/tomcat7/webapps/guacamole.war
 
 # 拷贝 guacamole 配置文件和免登配置文件
 COPY f2etest-docker/guacamole.properties /etc/guacamole/
 COPY f2etest-docker/noauth-config.xml /etc/guacamole/
 
 # 拷贝 Tomcat 服务脚本到 `/etc/init.d` 目录
-COPY f2etest-docker/tomcat8 /etc/init.d/
+COPY f2etest-docker/tomcat7 /etc/init.d/
 
 WORKDIR /etc/init.d
 
 # 增加 Tomcat 服务让其运行时自动启动
-RUN chmod 755 tomcat8 \
-  && chkconfig --add tomcat8 \
-  && chkconfig --level 234 tomcat8 on \
+RUN chmod 755 tomcat7 \
+  && chkconfig --add tomcat7 \
+  && chkconfig --level 234 tomcat7 on \
   && mkdir /root/.guacamole \
   && ln -s /etc/guacamole/guacamole.properties /root/.guacamole
 

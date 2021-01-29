@@ -6,7 +6,7 @@ JAVA_HOME=/usr/java/jdk1.8.0_141
 export JAVA_HOME
 PATH=$JAVA_HOME/bin:$PATH
 export PATH
-CATALINA_HOME=/usr/local/tomcat8
+CATALINA_HOME=/usr/local/tomcat7
 
 case $1 in
 start)
